@@ -24,10 +24,16 @@ using Entities.Concrete;
 //});
 
 CarManager carManager1 = new CarManager(new EfCarDal());
-foreach (var car in carManager1.GetCarDetail())
+var result = carManager1.GetCarDetail();
+if (result.Success)
 {
-    Console.WriteLine("{0} / {1} / {2} / {3}",car.CarName,car.BrandName,car.ColorName,car.DailyPrice);
+    foreach (var car in result.Data)
+    {
+        Console.WriteLine("{0} / {1} / {2} / {3}", car.CarName, car.BrandName, car.ColorName, car.DailyPrice);
+    }
 }
+
+
 
 
 

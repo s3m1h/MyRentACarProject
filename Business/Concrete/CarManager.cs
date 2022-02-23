@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities;
 using Entities.Concrete;
@@ -20,32 +21,37 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             if(car.Description.Length > 2 && car.DailyPrice >0)
             {
                 _carDal.Add(car);
+                return new SuccessResult();
             }
             // ekleme yaparken aynı isimde veri varsa ekleme yapmasın hata versin
             else
             {
-                throw new Exception("minimum 2 karakter olmalı");
+                return new ErrorResult();
             }
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
             throw new NotImplementedException();
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            if(DateTime.Now.Hour == 23)
+            {
+                return new ErrorDataResult<List<Car>>();
+            }
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(),"Arabalar listelendi");
         }
 
-        public List<CarDetailDto> GetCarDetail()
+        public IDataResult<List<CarDetailDto>> GetCarDetail()
         {
-            return _carDal.GetCarDetail();
+            return new DataResult<List<CarDetailDto>>(_carDal.GetCarDetail(),true);
         }
 
         public List<Car> GetCarsByBrandId(int id)
@@ -58,7 +64,7 @@ namespace Business.Concrete
             return _carDal.GetAll(c=>c.ColorId == id);
         }
 
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
             throw new NotImplementedException();
         }
