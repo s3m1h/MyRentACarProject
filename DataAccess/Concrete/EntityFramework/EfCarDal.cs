@@ -1,5 +1,8 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess.EntityFramework;
+using DataAccess.Abstract;
 using Entities;
+using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,56 +13,25 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCarDal : ICarDal
+    public class EfCarDal : EfEntityRepositoryBase<Car, RentACarContext>, ICarDal
     {
-        public void Add(Car entity)
+        public List<CarDetailDto> GetCarDetail()
         {
             using (RentACarContext context = new RentACarContext())
             {
-                // eklenecek varlık
-                var addedEntity = context.Entry(entity);
-                addedEntity.State = EntityState.Added;
-                context.SaveChanges();
-            }
-        }
-
-        public void Delete(Car entity)
-        {
-            using (RentACarContext context = new RentACarContext())
-            {
-                // silinecek varlık
-                var deletedEntity = context.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();
-            }
-        }
-
-        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
-        {
-            using (RentACarContext context = new RentACarContext())
-            {
-                // filtre verilmemişse tüm carları listeye çevirip getir
-                // filtre verilmişse filtreleyip getir
-                return filter == null ? context.Set<Car>().ToList() : context.Set<Car>().Where(filter).ToList();
-            }
-        }
-
-        public Car GetById(int id)
-        {
-            using (RentACarContext context = new RentACarContext())
-            {
-                return context.Set<Car>().SingleOrDefault(c => c.Id == id);
-            }
-        }
-
-        public void Update(Car entity)
-        {
-            using (RentACarContext context = new RentACarContext())
-            {
-                // update edilecek varlık
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
-                context.SaveChanges();
+                var result = from c in context.Cars
+                             join cl in context.Colors
+                             on c.ColorId equals cl.ColorId
+                             join b in context.Brands
+                             on c.BrandId equals b.BrandId
+                             select new CarDetailDto
+                             {
+                                 BrandName = b.BrandName,
+                                 CarName = c.Description,
+                                 ColorName = cl.ColorName,
+                                 DailyPrice = c.DailyPrice
+                             };
+                return result.ToList();
             }
         }
     }

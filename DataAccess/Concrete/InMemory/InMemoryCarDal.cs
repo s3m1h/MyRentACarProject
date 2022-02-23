@@ -1,5 +1,8 @@
-﻿using DataAccess.Abstract;
+﻿using Core.Entities;
+using DataAccess.Abstract;
 using Entities;
+using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +54,16 @@ namespace DataAccess.Concrete.InMemory
         }
 
         public Car GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Car GetById(Expression<Func<IEntity, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<CarDetailDto> GetCarDetail()
         {
             throw new NotImplementedException();
         }
