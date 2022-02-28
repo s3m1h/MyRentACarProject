@@ -40,6 +40,12 @@ namespace Business.Concrete
             throw new NotImplementedException();
         }
 
+        public IDataResult<Car> Get(int id)
+        {
+            var result = _carDal.GetById(c=>c.Id == id);
+            return new SuccessDataResult<Car>(result,"saef");
+        }
+
         public IDataResult<List<Car>> GetAll()
         {
             if(DateTime.Now.Hour == 23)
@@ -66,7 +72,8 @@ namespace Business.Concrete
 
         public IResult Update(Car car)
         {
-            throw new NotImplementedException();
+            _carDal.Update(car);
+            return new SuccessResult();
         }
     }
 }

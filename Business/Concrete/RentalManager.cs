@@ -24,5 +24,15 @@ namespace Business.Concrete
             _rentalDal.Add(rental);
             return new SuccessResult();
         }
+
+        public IDataResult<List<Rental>> GetAll()
+        {
+            var result = _rentalDal.GetAll();
+            if(result.Count != 0)
+            {
+                return new SuccessDataResult<List<Rental>>(result);
+            }
+            return new ErrorDataResult<List<Rental>>();
+        }
     }
 }
