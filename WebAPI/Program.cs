@@ -29,7 +29,13 @@ builder.Services.AddSingleton<IBrandDal, EfBrandDal>();
 builder.Services.AddSingleton<IColorService, ColorManager>();
 builder.Services.AddSingleton<IColorDal, EfColorDal>();
 
+// Customer
+builder.Services.AddSingleton<ICustomerService, CustomerManager>();
+builder.Services.AddSingleton<ICustomerDal, EfCustomerDal>();
 
+// User
+builder.Services.AddSingleton<IUserService, UserManager>();
+builder.Services.AddSingleton<IUserDal, EfUserDal>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
