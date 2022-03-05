@@ -14,7 +14,7 @@ namespace WebAPI.Controllers
         {
             _customerService = customerService;
         }
-        [HttpGet("add")]
+        [HttpPost("add")]
         public IActionResult Add(Customer customer)
         {
             var result = _customerService.Add(customer);
@@ -34,6 +34,16 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
 
+        }
+        [HttpPost("delete")]
+        public IActionResult Delete(Customer customer)
+        {
+            var result = _customerService.Delete(customer);
+            if (result.Success)
+            {
+                return Ok(result.Success);
+            }
+            return BadRequest(result);
         }
     }
 }

@@ -31,7 +31,8 @@ namespace Business.Concrete
 
         public IDataResult<List<User>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = _userDal.GetAll();
+            return new SuccessDataResult<List<User>>(result);
         }
 
         public IDataResult<User> Get(int id)
