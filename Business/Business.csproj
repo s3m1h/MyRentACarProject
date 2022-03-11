@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Constants\" />
+    <Folder Include="Constants\Messages\" />
   </ItemGroup>
 
   <ItemGroup>
