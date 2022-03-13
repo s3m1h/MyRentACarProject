@@ -11,5 +11,6 @@ namespace Core.Utilities.Images
     {
         string Upload(IFormFile file, string path);
         void Delete(string path);
+        string Update(IFormFile file, string path,string newPath);
     }
 }

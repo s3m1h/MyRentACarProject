@@ -17,6 +17,15 @@ namespace Core.Utilities.Images
             }
         }
 
+        public string Update(IFormFile file, string path, string newPath)
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+            return Upload(file,newPath);
+        }
+
         public string Upload(IFormFile file, string path)
         {
 
