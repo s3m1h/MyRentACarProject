@@ -54,27 +54,6 @@ builder.Services.AddDependencyResolvers(new ICoreModule[]
 //builder.Services.AddSingleton<ICarService,CarManager>();
 //builder.Services.AddSingleton<ICarDal,EfCarDal>();
 
-//// Rental
-//builder.Services.AddSingleton<IRentalService, RentalManager>();
-//builder.Services.AddSingleton<IRentalDal,EfRentalDal>();
-
-//// Brand
-//builder.Services.AddSingleton<IBrandService, BrandManager>();
-//builder.Services.AddSingleton<IBrandDal, EfBrandDal>();
-
-//// Color
-//builder.Services.AddSingleton<IColorService, ColorManager>();
-//builder.Services.AddSingleton<IColorDal, EfColorDal>();
-
-//// Customer
-//builder.Services.AddSingleton<ICustomerService, CustomerManager>();
-//builder.Services.AddSingleton<ICustomerDal, EfCustomerDal>();
-
-//// User
-//builder.Services.AddSingleton<IUserService, UserManager>();
-//builder.Services.AddSingleton<IUserDal, EfUserDal>();
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -83,7 +62,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
 app.UseHttpsRedirection();
 
 app.UseRouting();

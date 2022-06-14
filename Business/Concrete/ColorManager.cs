@@ -34,7 +34,7 @@ namespace Business.Concrete
             var result = _colorDal.GetAll();
             if(result.Count != 0)
             {
-                return new SuccessDataResult<List<Color>>(result,"asef");
+                return new SuccessDataResult<List<Color>>(result);
             }
             return new ErrorDataResult<List<Color>>();
         }

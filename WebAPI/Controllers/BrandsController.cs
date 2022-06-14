@@ -31,9 +31,9 @@ namespace WebAPI.Controllers
             var result = _brandService.GetAll();
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
-            return BadRequest(result);
+            return BadRequest(result.Message);
         }
         [HttpPost("delete")]
         public IActionResult Delete(Brand brand)

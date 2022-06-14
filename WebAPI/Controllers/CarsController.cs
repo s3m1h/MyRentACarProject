@@ -22,10 +22,21 @@ namespace WebAPI.Controllers
             var result = _carService.GetAll();
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
-            return BadRequest(result);
+            return BadRequest(result.Message);
             
+        }
+        [HttpGet("getcarsDetail")]
+        public IActionResult GetCarsDetail()
+        {
+            var result = _carService.GetCarDetail();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
+
         }
         [HttpPost("add")]
         public IActionResult Add(Car car)
