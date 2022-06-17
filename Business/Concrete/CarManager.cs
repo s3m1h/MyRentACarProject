@@ -48,11 +48,8 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetAll()
         {
-            if(DateTime.Now.Hour == 23)
-            {
-                return new ErrorDataResult<List<Car>>();
-            }
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(),"Arabalar listelendi");
+    
+            return new DataResult<List<Car>>(_carDal.GetAll(),true);
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetail()
@@ -60,14 +57,16 @@ namespace Business.Concrete
             return new DataResult<List<CarDetailDto>>(_carDal.GetCarDetail(),true);
         }
 
-        public List<Car> GetCarsByBrandId(int id)
+        public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
-            return _carDal.GetAll(c => c.BrandId == id);
+            var result = _carDal.GetAll(c => c.BrandId == id);
+            return new SuccessDataResult<List<Car>>(result);
         }
 
-        public List<Car> GetCarsByColorId(int id)
+        public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
-            return _carDal.GetAll(c=>c.ColorId == id);
+            var result = _carDal.GetAll(c => c.ColorId == id);
+            return new SuccessDataResult<List<Car>>(result);
         }
 
         public IResult Update(Car car)
@@ -75,5 +74,13 @@ namespace Business.Concrete
             _carDal.Update(car);
             return new SuccessResult();
         }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrandId(int brandId)
+        {
+            var result = _carDal.GetCarDetail(b=>b.BrandId == brandId);
+            return new SuccessDataResult<List<CarDetailDto>>(result);
+        }
+
+
     }
 }
