@@ -75,12 +75,16 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrandId(int brandId)
+        public IDataResult<List<CarAllDetailDto>> GetCarDetailsByBrandId(int brandId)
         {
-            var result = _carDal.GetCarDetail(b=>b.BrandId == brandId);
-            return new SuccessDataResult<List<CarDetailDto>>(result);
+            var result = _carDal.GetAllCarDetail(b=>b.BrandId == brandId);
+            return new SuccessDataResult<List<CarAllDetailDto>>(result);
         }
 
-
+        public IDataResult<List<CarAllDetailDto>> GetCarDetailsByColorId(int colorId)
+        {
+            var result = _carDal.GetAllCarDetail(c=>c.ColorId ==colorId);
+            return new SuccessDataResult<List<CarAllDetailDto>>(result);
+        }
     }
 }
